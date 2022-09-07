@@ -59,16 +59,20 @@ public class MainActivity extends AppCompatActivity {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String title = mEmail.getText().toString();
-                        long createdTime = System.currentTimeMillis();
+                        if (mEmail.length() > 1) {
+                            String title = mEmail.getText().toString();
+                            long createdTime = System.currentTimeMillis();
 
-                        realm.beginTransaction();
-                        Note note = realm.createObject(Note.class);
-                        note.setTitle(title);
-                        note.setCreatedTime(createdTime);
-                        realm.commitTransaction();
-                        Toast.makeText(getApplicationContext(),"Note saved",Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
+                            realm.beginTransaction();
+                            Note note = realm.createObject(Note.class);
+                            note.setTitle(title);
+                            note.setCreatedTime(createdTime);
+                            realm.commitTransaction();
+                            Toast.makeText(getApplicationContext(), "Note saved", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Field cannot be empty", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
